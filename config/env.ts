@@ -4,6 +4,7 @@ declare const process: {
 
 export const env = {
   BASE_URL: process.env.BASE_URL!,
+  BASE_EMAIL: process.env.BASE_EMAIL!,
 
   ADMIN_EMAIL: process.env.ADMIN_EMAIL!,
   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD!,

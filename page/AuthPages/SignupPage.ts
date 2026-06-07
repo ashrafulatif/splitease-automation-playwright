@@ -59,6 +59,14 @@ export class SignupPage {
     await this.clickRegister();
   }
 
+  async verifySignupSuccess() {
+    await expect(
+      this.page.getByText("Account created successfully"),
+    ).toBeVisible();
+    await expect(this.page).toHaveURL(/.*\/verify-email.*/);
+    await expect(this.page.getByText("Verify Your Email")).toBeVisible();
+  }
+
   async expectNameError(message: string) {
     await expect(this.nameError).toHaveText(message);
   }

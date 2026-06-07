@@ -14,20 +14,25 @@ export const usersCredentials = {
   },
 } as const;
 
-export type UserRole = keyof typeof usersCredentials;
+export type UserRoleKey = keyof typeof usersCredentials;
 
-//ui asertion after login
+export enum UserRole {
+  ADMIN = "admin",
+  MANAGER = "manager",
+  MEMBER = "member",
+}
+
 export const users = [
   {
-    role: "admin" as const,
+    role: UserRole.ADMIN,
     expectedText: "Admin Overview",
   },
   {
-    role: "manager" as const,
+    role: UserRole.MANAGER,
     expectedText: "Manager Dashboard",
   },
   {
-    role: "member" as const,
+    role: UserRole.MEMBER,
     expectedText: "Member Insights",
   },
 ];

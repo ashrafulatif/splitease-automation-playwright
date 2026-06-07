@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { SignupPage } from "../../page/AuthPages/SignupPage";
 import { env } from "../../config/env";
-import { generateUniqueEmail } from "../../utils/emailGenerator";
+import { generateDataUtil } from "../../utils/generateData";
 
 test.describe("Signup Page", () => {
   test("should load the signup page", async ({ page }: { page: Page }) => {
@@ -19,11 +19,9 @@ test.describe("Signup Page", () => {
     await signupPage.gotoPage();
 
     //generate unique email
-    const uniqueEmail = generateUniqueEmail(env.BASE_EMAIL);
-
+    const uniqueEmail = generateDataUtil.generateUniqueEmail(env.BASE_EMAIL);
     await signupPage.register("Test User", uniqueEmail, "password123");
-    await expect(page.getByText("Account created successfully")).toBeVisible();
-    await expect(page).toHaveURL(/verify-email/);
+    await signupPage.verifySignupSuccess();
   });
 
   test("should show error for duplicate email", async ({
@@ -95,11 +93,10 @@ test.describe("Signup Page", () => {
     await signupPage.gotoPage();
 
     //generate unique email
-    const uniqueEmail = generateUniqueEmail(env.BASE_EMAIL);
+    const uniqueEmail = generateDataUtil.generateUniqueEmail(env.BASE_EMAIL);
 
     await signupPage.register("Test User", uniqueEmail, "password123");
-    await expect(page).toHaveURL(/.*\/verify-email.*/);
-    await expect(page.getByText("Verify Your Email")).toBeVisible();
+    await signupPage.verifySignupSuccess();
   });
 
   test("should redirect to login page when click to signin link", async ({
